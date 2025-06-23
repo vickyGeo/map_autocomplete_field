@@ -38,7 +38,17 @@ class MapAutoCompleteField extends StatelessWidget {
     this.inputDecoration,
     this.selectedTextStyle,
     this.focusNode,
+    this.cursorWidth,
+    this.cursorHeight,
+    this.cursorRadius,
+    this.cursorColor,
   }) : super(key: key);
+  final double? cursorWidth;
+
+  final double? cursorHeight;
+
+  final Radius? cursorRadius;
+  final Color? cursorColor;
   final double? height;
   final TextEditingController controller;
   final Future<List<dynamic>> Function(String)? suggestionsCallback;
