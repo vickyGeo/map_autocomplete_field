@@ -18,6 +18,7 @@ import 'package:map_autocomplete_field/services/places_service.dart';
 class MapAutoCompleteField extends StatelessWidget {
   const MapAutoCompleteField({
     Key? key,
+    this.height,
     required this.controller,
     this.suggestionsCallback,
     required this.itemBuilder,
@@ -38,6 +39,7 @@ class MapAutoCompleteField extends StatelessWidget {
     this.selectedTextStyle,
     this.focusNode,
   }) : super(key: key);
+  final double? height;
   final TextEditingController controller;
   final Future<List<dynamic>> Function(String)? suggestionsCallback;
   final Widget Function(BuildContext, dynamic) itemBuilder;
@@ -73,53 +75,59 @@ class MapAutoCompleteField extends StatelessWidget {
           child: TypeAheadField(
             focusNode: focusNode,
             controller: controller,
-            builder: (context, controller, focusNode) => TextFormField(
-              controller: controller,
-              validator: validator,
-              onSaved: onSaved,
-              focusNode: focusNode,
-              autofocus: false,
-              style: selectedTextStyle,
-              decoration: inputDecoration ??
-                  InputDecoration(
-                    fillColor: fillColor ?? const Color(0xffBFBFBF),
-                    hintText: hint,
-                    hintStyle: hintStyle ??
-                        const TextStyle(
-                          color: Color(0xff808080),
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w400,
-                        ),
-                    focusedBorder: focusedBorder ??
-                        const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Color(0xffBFBFBF),
+            builder: (context, controller, focusNode) => SizedBox(
+              height: height ?? 50,
+              child: TextFormField(
+                controller: controller,
+                validator: validator,
+                onSaved: onSaved,
+                focusNode: focusNode,
+                autofocus: false,
+                style: selectedTextStyle,
+                decoration: inputDecoration ??
+                    InputDecoration(
+                      fillColor: fillColor ?? const Color(0xffBFBFBF),
+                      hintText: hint,
+                      hintStyle: hintStyle ??
+                          const TextStyle(
+                            color: Color(0xff808080),
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w400,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                    contentPadding: contentPadding ??
-                        const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 10,
-                        ),
-                    border: border ??
-                        const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Color(0xffBFBFBF),
+                      focusedBorder: focusedBorder ??
+                          const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Color(0xffBFBFBF),
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0)),
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                    enabledBorder: enabledBorder ??
-                        const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 1,
-                            color: Color(0xffBFBFBF),
+                      contentPadding: contentPadding ??
+                          const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 10,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                        ),
-                  ),
+                      border: border ??
+                          const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Color(0xffBFBFBF),
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0)),
+                          ),
+                      enabledBorder: enabledBorder ??
+                          const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Color(0xffBFBFBF),
+                            ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0)),
+                          ),
+                    ),
+              ),
             ),
             suggestionsCallback: suggestionsCallback ??
                 (query) async {
