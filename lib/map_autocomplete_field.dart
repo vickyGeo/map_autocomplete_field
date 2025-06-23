@@ -39,7 +39,7 @@ class MapAutoCompleteField extends StatelessWidget {
     this.focusNode,
   }) : super(key: key);
   final TextEditingController controller;
-  final FutureOr<Iterable<dynamic>> Function(String)? suggestionsCallback;
+  final Future<List<dynamic>> Function(String)? suggestionsCallback;
   final Widget Function(BuildContext, dynamic) itemBuilder;
   final void Function(dynamic) onSuggestionSelected;
   final Function(String?)? onSaved;
@@ -70,10 +70,15 @@ class MapAutoCompleteField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             // color: Pallets.grey50,
           ),
-          child: TypeAheadFormField(
-            textFieldConfiguration: TextFieldConfiguration(
-              focusNode: focusNode,
+          child: TypeAheadField(
+            focusNode: focusNode,
+            controller: controller,
+            builder: (context, controller, focusNode) => TextFormField(
               controller: controller,
+              validator: validator,
+              onSaved: onSaved,
+              focusNode: focusNode,
+              autofocus: true,
               style: selectedTextStyle,
               decoration: inputDecoration ??
                   InputDecoration(
@@ -117,25 +122,21 @@ class MapAutoCompleteField extends StatelessWidget {
                   ),
             ),
             suggestionsCallback: suggestionsCallback ??
-                (query) {
-                  return PlacesService.getSuggestion(
+                (query) async {
+                  List<Suggestion> suggestions =
+                      await PlacesService.getSuggestion(
                     query,
                     googleMapApiKey: googleMapApiKey,
                     locale: locale,
                   );
+
+                  return suggestions;
                 },
             itemBuilder: itemBuilder,
-            transitionBuilder: transitionBuilder ??
-                (BuildContext context, Widget suggestionsBox,
-                    AnimationController? controller) {
-                  return suggestionsBox;
-                },
             hideOnEmpty: false,
             hideOnLoading: true,
             hideOnError: false,
-            onSuggestionSelected: onSuggestionSelected,
-            validator: validator,
-            onSaved: onSaved,
+            onSelected: onSuggestionSelected,
           ),
         ),
       ],
