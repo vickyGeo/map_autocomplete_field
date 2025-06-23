@@ -78,7 +78,7 @@ class MapAutoCompleteField extends StatelessWidget {
               validator: validator,
               onSaved: onSaved,
               focusNode: focusNode,
-              autofocus: true,
+              autofocus: false,
               style: selectedTextStyle,
               decoration: inputDecoration ??
                   InputDecoration(
