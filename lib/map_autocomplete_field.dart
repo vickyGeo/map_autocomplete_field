@@ -144,6 +144,12 @@ class MapAutoCompleteField extends StatelessWidget {
             hideOnEmpty: false,
             hideOnLoading: true,
             hideOnError: false,
+            errorBuilder: (context, error) => Text(error.toString(),
+                style: selectedTextStyle?.copyWith(color: Colors.red)),
+            emptyBuilder: (context) => Text(
+              "No results found",
+              style: selectedTextStyle,
+            ),
             onSelected: onSuggestionSelected,
           ),
         ),
