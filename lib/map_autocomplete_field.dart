@@ -88,6 +88,10 @@ class MapAutoCompleteField extends StatelessWidget {
             builder: (context, controller, focusNode) => SizedBox(
               height: height ?? 50,
               child: TextFormField(
+                cursorWidth: cursorWidth ?? 2,
+                cursorHeight: cursorHeight,
+                cursorRadius: cursorRadius,
+                cursorColor: cursorColor,
                 controller: controller,
                 validator: validator,
                 onSaved: onSaved,
