@@ -16,33 +16,34 @@ import 'package:map_autocomplete_field/services/places_service.dart';
 /// the result span the globe, which no not be desirable behaviour for some use cases.
 
 class MapAutoCompleteField extends StatelessWidget {
-  const MapAutoCompleteField({
-    Key? key,
-    this.height,
-    required this.controller,
-    this.suggestionsCallback,
-    required this.itemBuilder,
-    required this.onSuggestionSelected,
-    this.onSaved,
-    this.hint = 'Address',
-    this.validator,
-    required this.googleMapApiKey,
-    this.locale,
-    this.contentPadding,
-    this.fillColor,
-    this.hintStyle,
-    this.focusedBorder,
-    this.enabledBorder,
-    this.border,
-    this.transitionBuilder,
-    this.inputDecoration,
-    this.selectedTextStyle,
-    this.focusNode,
-    this.cursorWidth,
-    this.cursorHeight,
-    this.cursorRadius,
-    this.cursorColor,
-  }) : super(key: key);
+  const MapAutoCompleteField(
+      {Key? key,
+      this.height,
+      required this.controller,
+      this.suggestionsCallback,
+      required this.itemBuilder,
+      required this.onSuggestionSelected,
+      this.onSaved,
+      this.hint = 'Address',
+      this.validator,
+      required this.googleMapApiKey,
+      this.locale,
+      this.contentPadding,
+      this.fillColor,
+      this.hintStyle,
+      this.focusedBorder,
+      this.enabledBorder,
+      this.border,
+      this.transitionBuilder,
+      this.inputDecoration,
+      this.selectedTextStyle,
+      this.focusNode,
+      this.cursorWidth,
+      this.cursorHeight,
+      this.cursorRadius,
+      this.cursorColor,
+      this.decorationBuilder})
+      : super(key: key);
   final double? cursorWidth;
 
   final double? cursorHeight;
@@ -50,6 +51,7 @@ class MapAutoCompleteField extends StatelessWidget {
   final Radius? cursorRadius;
   final Color? cursorColor;
   final double? height;
+  final Widget Function(BuildContext context, Widget child)? decorationBuilder;
   final TextEditingController controller;
   final Future<List<dynamic>> Function(String)? suggestionsCallback;
   final Widget Function(BuildContext, dynamic) itemBuilder;
@@ -156,14 +158,7 @@ class MapAutoCompleteField extends StatelessWidget {
                 },
             itemBuilder: itemBuilder,
             hideOnEmpty: false,
-            decorationBuilder: (context, child) {
-              return Material(
-                type: MaterialType.canvas,
-                elevation: 2,
-                borderOnForeground: true,
-                child: child,
-              );
-            },
+            decorationBuilder: decorationBuilder,
             offset: Offset(0, 0),
             constraints: BoxConstraints(
               maxHeight: 500,
