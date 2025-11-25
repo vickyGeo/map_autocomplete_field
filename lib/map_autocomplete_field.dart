@@ -125,7 +125,7 @@ class MapAutoCompleteField extends StatelessWidget {
                       border: border ??
                           const OutlineInputBorder(
                             borderSide: BorderSide(
-                              width: 1,
+                              width: 100,
                               color: Color(0xffBFBFBF),
                             ),
                             borderRadius:
@@ -156,6 +156,18 @@ class MapAutoCompleteField extends StatelessWidget {
                 },
             itemBuilder: itemBuilder,
             hideOnEmpty: false,
+            decorationBuilder: (context, child) {
+              return Material(
+                type: MaterialType.canvas,
+                elevation: 2,
+                borderOnForeground: true,
+                child: child,
+              );
+            },
+            offset: Offset(0, 0),
+            constraints: BoxConstraints(
+              maxHeight: 500,
+            ),
             hideOnLoading: true,
             hideOnError: false,
             errorBuilder: (context, error) => Text(error.toString(),
